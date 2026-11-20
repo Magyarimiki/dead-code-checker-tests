@@ -249,6 +249,34 @@ void test18(bool x) {
     }
 }
 
+void test19() {
+    bool x = true;
+    bool y = true;
+    auto foobar = [&]() {
+        x = false;
+    };
+    foobar();
+    if (!x) {
+        int a = 1;
+    }
+    if (!y) {
+        int a = 1; // unreachable
+    }
+    x = false;
+    if (x) {
+        int b = 1; // unreachable
+    }
+}
+
+void test20() {
+    bool flag1 = true;
+    bool* ptr1 = &flag1;
+    *ptr1 = false;
+    if (flag1) {
+        // unreachable
+    }
+}
+
 int main() {
     bool z = false;
     bool y = true;
